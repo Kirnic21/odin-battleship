@@ -28,16 +28,4 @@ module.exports = {
       '\\.(gif|ttf|eot|svg)$': 'template-repo-2/__mocks__/fileMock.js',
     },
   };
-  module.exports = {
-    modulePaths: ['/shared/vendor/modules'],
-    moduleFileExtensions: ['js', 'jsx'],
-    moduleDirectories: ['node_modules', 'bower_components', 'shared'],
-  
-    moduleNameMapper: {
-      '\\.(css|less)$': 'template-repo-2/__mocks__/styleMock.js',
-      '\\.(gif|ttf|eot|svg)$': 'template-repo-2/__mocks__/fileMock.js',
-  
-      '^react(.*)$': 'template-repo-2/vendor/react-master$1',
-      '^config$': 'template-repo-2/configs/app-config.js',
-    },
-  };
+ 
