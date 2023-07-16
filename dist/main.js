@@ -116,7 +116,7 @@ eval("\n\n/* istanbul ignore next  */\nfunction styleTagTransform(css, styleElem
   \**************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"gameboard\": () => (/* binding */ gameboard)\n/* harmony export */ });\n/* harmony import */ var _Ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Ship */ \"./src/Ship.js\");\n\nconst gameboard = (array)=>{\n    \n    const receiveAttack =()=>{\n\n    }\n}\nconsole.log(gameboard([]))\n\n\n//# sourceURL=webpack://a/./src/Gameboard.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"gameboard\": () => (/* binding */ gameboard)\n/* harmony export */ });\n/* harmony import */ var _Ship__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Ship */ \"./src/Ship.js\");\n\n\nconst gameboard = () => {\n  let shipArray = [];\n  const getShipArray = () => shipArray;\n  const createShip = (length, position) => {\n    let newShip = (0,_Ship__WEBPACK_IMPORTED_MODULE_0__.ship)(length, position);\n    let shiparray = getShipArray();\n    shiparray.push(newShip);\n    return shiparray;\n  };\n  const createBoard = () => {\n    const board = [];\n    for (let i = 0; i < rows; i++) {\n      board[i] = [];\n      for (let j = 0; j < columns; j++) {\n        board[i][j] = j;\n      }\n    }\n    return board;\n  };\n  const verifyIfHasShip = (coordinate) => {\n    let stringfiedCoordinate = JSON.stringify(coordinate);\n    let shipArray = getShipArray();\n    for (let i in shipArray) {\n      let positionArray = shipArray[i].getPosition();\n      let stringfyPositionArray = JSON.stringify(positionArray);\n      if (stringfyPositionArray.includes(stringfiedCoordinate)) {\n        return shipArray[i];\n      }\n      \n    }\n  };\n  const receiveAttack = ()=>{\n    \n  }\n  let missedAttacks = [];\n  return { createShip, verifyIfHasShip };\n};\n\n\n\n//# sourceURL=webpack://a/./src/Gameboard.js?");
 
 /***/ }),
 
@@ -126,7 +126,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \*********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ship\": () => (/* binding */ ship)\n/* harmony export */ });\nconst ship = (length) => {\n  let hit = 0;\n  const gotHit = () => {\n    return ++hit;\n  };\n  const isSunk = () => hit >= length;\n  return { gotHit, isSunk,hit };\n};\n\n\n\n\n\n//# sourceURL=webpack://a/./src/Ship.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   \"ship\": () => (/* binding */ ship)\n/* harmony export */ });\nconst ship = (length, position) => {\n  let hit = 0;\n  const position2 = position\n  const gotHit = () => {\n    return ++hit;\n  };\n  const isSunk = () => hit >= length;\n  const getPosition = () => {\n    return position2;\n  };\n  return { gotHit, isSunk, hit, getPosition };\n};\nlet ship2 = ship(3, [[3, 4]]);\n\n\n\n\n//# sourceURL=webpack://a/./src/Ship.js?");
 
 /***/ }),
 
@@ -136,7 +136,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _Ship__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Ship */ \"./src/Ship.js\");\n/* harmony import */ var _Gameboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Gameboard */ \"./src/Gameboard.js\");\n\n\n\nconsole.log((0,_Ship__WEBPACK_IMPORTED_MODULE_1__.ship)(2).isSunk())\n\n//# sourceURL=webpack://a/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _style_css__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./style.css */ \"./src/style.css\");\n/* harmony import */ var _Ship__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Ship */ \"./src/Ship.js\");\n/* harmony import */ var _Gameboard__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Gameboard */ \"./src/Gameboard.js\");\n\n\n\nconsole.log((0,_Ship__WEBPACK_IMPORTED_MODULE_1__.ship)(2).isSunk());\n\n\n//# sourceURL=webpack://a/./src/index.js?");
 
 /***/ })
 
