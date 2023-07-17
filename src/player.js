@@ -5,6 +5,7 @@ const player = (name, playerTurn, enemy) => {
   const getGameboard = () => {
     return playerGameboard;
   };
+  const getPlayerTurn = () => itsPlayerTurn
   const endTurn = () => {
     return (itsPlayerTurn = false);
   };
@@ -16,7 +17,9 @@ const player = (name, playerTurn, enemy) => {
       return "Is AI";
     }
   };
-
+  const aiBehavior = ()=>{
+    if(getPlayerTurn()=== true)
+  }
   return { playerGameboard, endTurn, startTurn, turnIntoAi, getGameboard };
 };
 export { player };

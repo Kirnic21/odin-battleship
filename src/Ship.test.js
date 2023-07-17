@@ -21,5 +21,10 @@ test("Ship is not sunk with 3 length and 2 hits", () => {
 });
 
 test("Ship get coordinates", () => {
-  expect(JSON.stringify(shipNew2.getPosition())).toStrictEqual(JSON.stringify([3, 4]));
+  expect(JSON.stringify(shipNew2.getPosition())).toStrictEqual(
+    JSON.stringify([3, 4]),
+  );
+});
+test("Ship got hit 2 times!", () => {
+  expect(shipNew.gotHit()).toBe(3);
 });

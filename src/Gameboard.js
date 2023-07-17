@@ -3,12 +3,43 @@ import { ship } from "./Ship";
 const gameboard = () => {
   let shipArray = [];
   const getShipArray = () => shipArray;
+  const verifyIfhasAShipInCoordinate = (position) => {
+    for (let i in position) {
+      if (verifyIfHasShip(position[i]) !== undefined) {
+        return false;
+      }
+    }
+  };
+  let shipCoordinatesArray = []
+const equal2DArray = (coordinateArray,position) => {
+    let coordinateArrayStringfied = JSON.stringify(coordinateArray)
+    for(let i in position)
+    {
+      let stringfied = JSON.stringify(position[i])
+      if(coordinateArrayStringfied.includes(stringfied))
+      {
+        return true
+      }
+    }
+  }
+
+  const getShipCoordinatesArray = ()=>shipCoordinatesArray
   const createShip = (length, position) => {
-    let newShip = ship(length, position);
+    let coordinateArray = getShipCoordinatesArray()
+    if(!equal2DArray(coordinateArray,position))
+    {
+      let newShip = ship(length, position);
     let shiparray = getShipArray();
     shiparray.push(newShip);
+    coordinateArray.push(newShip.getPosition())
     return shiparray;
-  };
+    }
+    else{
+      return "no"
+    }
+
+    
+   };
   const createBoard = () => {
     const board = [];
     for (let i = 0; i < rows; i++) {
@@ -19,6 +50,13 @@ const gameboard = () => {
     }
     return board;
   };
+  const returnCoordinate = (ship,coordinate)=>{
+    let stringfiedCoordinate = JSON.stringify(coordinate);
+    let shipArray = JSON.stringify(ship.getPosition())
+    if(shipArray.includes(stringfiedCoordinate))
+    {return coordinate
+    }
+  }
   const verifyIfHasShip = (coordinate) => {
     let stringfiedCoordinate = JSON.stringify(coordinate);
     let shipArray = getShipArray();
@@ -28,13 +66,53 @@ const gameboard = () => {
       if (stringfyPositionArray.includes(stringfiedCoordinate)) {
         return shipArray[i];
       }
-      
+      else{
+        continue
+      }
     }
-  };
-  const receiveAttack = ()=>{
-    
+  
   }
-  let missedAttacks = [];
-  return { createShip, verifyIfHasShip };
-};
+    const receiveAttack = (coordinate) => {
+      let receivedAttack = verifyIfHasShip(coordinate)
+
+      let coordinates = getCoordinates();
+      if(receivedAttack === undefined)
+      {
+          console.log(coordinate)
+          coordinates.push(coordinate);
+          return coordinates
+      }
+      else{
+      let receivedAttackCoordinate = returnCoordinate(receivedAttack,coordinate)
+      let coordinates = getCoordinates();
+      if (
+        receivedAttackCoordinate[0] === coordinate[0] &&
+        receivedAttackCoordinate[1] === coordinate[1]
+      ) {
+        receivedAttack.gotHit();
+        coordinates.push(coordinate);
+        return receivedAttack.isSunk();
+      } else if (receivedAttack !== undefined) {
+        coordinates.push(coordinate);
+      } else if (receivedAttack === undefined) {
+        return "you missed!";
+      }
+    }
+    };
+    let coordinatesAttacked = [];
+    const getCoordinates = () => coordinatesAttacked;
+    
+    const checkIfShipsAreSunk = ()=>{
+      let shipArray = getShipArray()
+      return shipArray.every((currentShip)=>{currentShip.isSunk()})
+    }
+    return {
+      createShip,
+      verifyIfHasShip,
+      receiveAttack,
+      verifyIfhasAShipInCoordinate,
+      createBoard,
+      checkIfShipsAreSunk
+    };
+  };
 export { gameboard };
