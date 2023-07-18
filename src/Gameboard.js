@@ -10,53 +10,47 @@ const gameboard = () => {
       }
     }
   };
-  let shipCoordinatesArray = []
-const equal2DArray = (coordinateArray,position) => {
-    let coordinateArrayStringfied = JSON.stringify(coordinateArray)
-    for(let i in position)
-    {
-      let stringfied = JSON.stringify(position[i])
-      if(coordinateArrayStringfied.includes(stringfied))
-      {
-        return true
+  let shipCoordinatesArray = [];
+  const equal2DArray = (coordinateArray, position) => {
+    let coordinateArrayStringfied = JSON.stringify(coordinateArray);
+    for (let i in position) {
+      let stringfied = JSON.stringify(position[i]);
+      if (coordinateArrayStringfied.includes(stringfied)) {
+        return true;
       }
     }
-  }
+  };
 
-  const getShipCoordinatesArray = ()=>shipCoordinatesArray
+  const getShipCoordinatesArray = () => shipCoordinatesArray;
   const createShip = (length, position) => {
-    let coordinateArray = getShipCoordinatesArray()
-    if(!equal2DArray(coordinateArray,position))
-    {
+    let coordinateArray = getShipCoordinatesArray();
+    if (!equal2DArray(coordinateArray, position)) {
       let newShip = ship(length, position);
-    let shiparray = getShipArray();
-    shiparray.push(newShip);
-    coordinateArray.push(newShip.getPosition())
-    return shiparray;
+      let shiparray = getShipArray();
+      shiparray.push(newShip);
+      coordinateArray.push(newShip.getPosition());
+      return shiparray;
+    } else {
+      return "no";
     }
-    else{
-      return "no"
-    }
-
-    
-   };
+  };
   const createBoard = () => {
     const board = [];
-    for (let i = 0; i < rows; i++) {
+    for (let i = 0; i < 10; i++) {
       board[i] = [];
-      for (let j = 0; j < columns; j++) {
+      for (let j = 0; j < 10; j++) {
         board[i][j] = j;
       }
     }
     return board;
   };
-  const returnCoordinate = (ship,coordinate)=>{
+  const returnCoordinate = (ship, coordinate) => {
     let stringfiedCoordinate = JSON.stringify(coordinate);
-    let shipArray = JSON.stringify(ship.getPosition())
-    if(shipArray.includes(stringfiedCoordinate))
-    {return coordinate
+    let shipArray = JSON.stringify(ship.getPosition());
+    if (shipArray.includes(stringfiedCoordinate)) {
+      return coordinate;
     }
-  }
+  };
   const verifyIfHasShip = (coordinate) => {
     let stringfiedCoordinate = JSON.stringify(coordinate);
     let shipArray = getShipArray();
@@ -65,25 +59,23 @@ const equal2DArray = (coordinateArray,position) => {
       let stringfyPositionArray = JSON.stringify(positionArray);
       if (stringfyPositionArray.includes(stringfiedCoordinate)) {
         return shipArray[i];
-      }
-      else{
-        continue
+      } else {
+        continue;
       }
     }
-  
-  }
-    const receiveAttack = (coordinate) => {
-      let receivedAttack = verifyIfHasShip(coordinate)
+  };
+  const receiveAttack = (coordinate) => {
+    let receivedAttack = verifyIfHasShip(coordinate);
 
-      let coordinates = getCoordinates();
-      if(receivedAttack === undefined)
-      {
-          console.log(coordinate)
-          coordinates.push(coordinate);
-          return coordinates
-      }
-      else{
-      let receivedAttackCoordinate = returnCoordinate(receivedAttack,coordinate)
+    let coordinates = getCoordinates();
+    if (receivedAttack === undefined) {
+      coordinates.push(coordinate);
+      return coordinates;
+    } else {
+      let receivedAttackCoordinate = returnCoordinate(
+        receivedAttack,
+        coordinate,
+      );
       let coordinates = getCoordinates();
       if (
         receivedAttackCoordinate[0] === coordinate[0] &&
@@ -92,27 +84,28 @@ const equal2DArray = (coordinateArray,position) => {
         receivedAttack.gotHit();
         coordinates.push(coordinate);
         return receivedAttack.isSunk();
-      } else if (receivedAttack !== undefined) {
-        coordinates.push(coordinate);
-      } else if (receivedAttack === undefined) {
-        return "you missed!";
       }
     }
-    };
-    let coordinatesAttacked = [];
-    const getCoordinates = () => coordinatesAttacked;
-    
-    const checkIfShipsAreSunk = ()=>{
-      let shipArray = getShipArray()
-      return shipArray.every((currentShip)=>{currentShip.isSunk()})
-    }
-    return {
-      createShip,
-      verifyIfHasShip,
-      receiveAttack,
-      verifyIfhasAShipInCoordinate,
-      createBoard,
-      checkIfShipsAreSunk
-    };
   };
+  let coordinatesAttacked = [];
+  const getCoordinates = () => coordinatesAttacked;
+
+  const checkIfShipsAreSunk = () => {
+    let shipArray = getShipArray();
+    const testIfIsSunk = (currentValue) => {
+      return currentValue.isSunk() === true;
+    };
+    return shipArray.every(testIfIsSunk);
+  };
+  return {
+    createShip,
+    verifyIfHasShip,
+    receiveAttack,
+    verifyIfhasAShipInCoordinate,
+    createBoard,
+    checkIfShipsAreSunk,
+    getShipArray,
+    getCoordinates,
+  };
+};
 export { gameboard };
