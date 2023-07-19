@@ -9,7 +9,7 @@ let testShip3 = ship(2, [
   [3, 4],
   [3, 5],
 ]);
-
+console.log(testShip)
 test("Ship created", () => {
   expect(JSON.stringify(gameboard2.createShip(1, [[3, 4]])[0])).toEqual(
     JSON.stringify(testShip),
@@ -35,7 +35,18 @@ test("Check if there is a shipn in this coordinate!", () => {
     JSON.stringify(testShip),
   );
 });
+console.log(gameboard2.verifyIfHasShip([3, 4]))
 
+test("Check if there is a shipn in this coordinate!", () => {
+  expect(gameboard2.verifyIfhasAShipInCoordinate([3, 4])).toEqual(
+    true,
+  );
+});
+test("Check if there is a shipn in this coordinate!", () => {
+  expect(gameboard2.verifyIfhasAShipInCoordinate([0, 0])).toEqual(
+    false,
+  );
+});
 test("Check if there is a ship in this coordinate 2 !", () => {
   expect(JSON.stringify(gameboard2.verifyIfHasShip([4, 3]))).toEqual(
     JSON.stringify(testShip2),

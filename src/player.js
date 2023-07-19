@@ -85,7 +85,8 @@ const player = (name, playerTurn) => {
     aiBehavior,
     getEnemy,
     getPlayerTurn,
-    attackOtherGameboard
+    attackOtherGameboard,
+
   };
 };
 

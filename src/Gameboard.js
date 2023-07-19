@@ -4,9 +4,13 @@ const gameboard = () => {
   let shipArray = [];
   const getShipArray = () => shipArray;
   const verifyIfhasAShipInCoordinate = (position) => {
+    console.log(position)
     for (let i in position) {
       if (verifyIfHasShip(position[i]) !== undefined) {
-        return false;
+        return true;
+      }
+      else{
+        return false
       }
     }
   };
@@ -106,6 +110,8 @@ const gameboard = () => {
     checkIfShipsAreSunk,
     getShipArray,
     getCoordinates,
+    getShipCoordinatesArray,
   };
 };
+
 export { gameboard };
