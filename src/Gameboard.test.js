@@ -37,21 +37,6 @@ test("Check if there is a shipn in this coordinate!", () => {
 });
 console.log(gameboard2.verifyIfHasShip([3, 4]))
 
-test("Check if there is a shipn in this coordinate!", () => {
-  expect(gameboard2.verifyIfhasAShipInCoordinate([3, 4])).toEqual(
-    true,
-  );
-});
-test("Check if there is a shipn in this coordinate!", () => {
-  expect(gameboard2.verifyIfhasAShipInCoordinate([0, 0])).toEqual(
-    false,
-  );
-});
-test("Check if there is a ship in this coordinate 2 !", () => {
-  expect(JSON.stringify(gameboard2.verifyIfHasShip([4, 3]))).toEqual(
-    JSON.stringify(testShip2),
-  );
-});
 test("Check if it returns something if it does not exists", () => {
   expect(JSON.stringify(gameboard2.verifyIfHasShip([2, 3]))).toBe(undefined);
 });
@@ -89,4 +74,11 @@ test("Are all ships sunk,yes", () => {
 
 test("Are all ships sunk,yes", () => {
   expect(gameboard3.checkIfShipsAreSunk()).toEqual(true);
+});
+test("does it has a ship in 3,4", () => {
+  expect(gameboard3.ifHasShip([3,4])).toEqual(true);
+});
+
+test("does it has a ship in 2,3", () => {
+  expect(gameboard3.ifHasShip([2,3])).toEqual(false);
 });

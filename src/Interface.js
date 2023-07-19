@@ -5,7 +5,7 @@ let player2 = player(0,false)
 let player1Gameboard = player1.getGameboard()
 let player2Gameboard = player2.getGameboard()
 
-player2Gameboard.createShip(2,[[1,1]])
+player2Gameboard.createShip(2,[[1,2]])
 player2Gameboard.createShip(2,[[3,4]])
 player2Gameboard.createShip(2,[[0,0]])
 
@@ -40,8 +40,8 @@ const makeEnemyGrid = ()=>{
         let cell = document.createElement("div")
         cell.innerText = ""
         enemyContainer.appendChild(cell).className = "grid-item-enemy"
-        cell.dataset.coordinateX = board[i][i]
-        cell.dataset.coordinateY = board[j][j]
+        cell.dataset.coordinateY = board[i][i]
+        cell.dataset.coordinateX = board[j][j]
         }
 
     }
@@ -91,27 +91,12 @@ const displayReceivedAttack = ()=>{
     })
    
    }
-   const displayReceivedAttackEnemy = ()=>{
-    const coordinateArray = player1Gameboard.getCoordinates()
   
-    const coordinateArrayStringfied = JSON.stringify(coordinateArray)
-    const gridItems = document.querySelectorAll(".grid-item-enemy")
-    gridItems.forEach((element)=>{
-       let coordinatesInDiv = "["+element.dataset.coordinateX+","+element.dataset.coordinateY+"]"
-    
-       if(coordinateArrayStringfied.includes(coordinatesInDiv) && element.classList.contains("ship-div-enemy"))
-       {
-        element.classList.add("attacked")
-        
-       }
-
-    })
-   
-   }
    player2Gameboard.createShip(2,[[0,0]])
   const inputAttack= ()=>{
     const enemyCoordinates = document.querySelectorAll(".grid-item-enemy")
-    let gameboard = player2.getGameboard()
+    let gameboard = player2Gameboard
+  
     enemyCoordinates.forEach((element)=>{
         element.addEventListener("click",()=>{
             let xCoordinate = parseInt(element.dataset.coordinateX)
@@ -119,17 +104,14 @@ const displayReceivedAttack = ()=>{
             console.log(xCoordinate,yCoordinate)
         
             gameboard.receiveAttack([xCoordinate,yCoordinate])
-            console.log(gameboard.verifyIfhasAShip([xCoordinate,yCoordinate]))
-            if(gameboard.verifyIfhasAShip([xCoordinate,yCoordinate]))
+            if(gameboard.ifHasShip([xCoordinate,yCoordinate]))
             {
-                element.classList.add("attacked")
-                displayReceivedAttackEnemy()
+               element.classList.add("attacked")
             }
             else{
                 element.classList.add("missed")
             }
         })
-    })
-} 
-   
-export{makePlayerGrid, makeEnemyGrid,displayCoordinates,displayCoordinatesEnemy,displayReceivedAttack,displayReceivedAttackEnemy,inputAttack}
+    })}
+
+export{makePlayerGrid, makeEnemyGrid,displayCoordinates,displayCoordinatesEnemy,displayReceivedAttack,inputAttack}

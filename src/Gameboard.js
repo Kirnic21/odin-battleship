@@ -4,13 +4,9 @@ const gameboard = () => {
   let shipArray = [];
   const getShipArray = () => shipArray;
   const verifyIfhasAShipInCoordinate = (position) => {
-    console.log(position)
     for (let i in position) {
       if (verifyIfHasShip(position[i]) !== undefined) {
-        return true;
-      }
-      else{
-        return false
+        return false;
       }
     }
   };
@@ -24,7 +20,28 @@ const gameboard = () => {
       }
     }
   };
+  const getShipCoordinates = ()=>{
+    const shipArray = getShipArray()
+    let coordinateArray = []
+    for(let i in shipArray)
+    {
+      coordinateArray.push(shipArray[i].getPosition())
+    }
 
+    return coordinateArray
+  }
+  const ifHasShip = (coordinate)=>{
+    const shipArray = getShipArray()
+    let stringfiedCoordinate = JSON.stringify(coordinate);
+    let coordinateArray = JSON.stringify(getShipCoordinates())
+    if(coordinateArray.includes(stringfiedCoordinate))
+    {
+      return true
+    }
+    else{
+      return false
+    }
+   }
   const getShipCoordinatesArray = () => shipCoordinatesArray;
   const createShip = (length, position) => {
     let coordinateArray = getShipCoordinatesArray();
@@ -111,7 +128,8 @@ const gameboard = () => {
     getShipArray,
     getCoordinates,
     getShipCoordinatesArray,
+    getShipCoordinates,
+    ifHasShip
   };
 };
-
 export { gameboard };
