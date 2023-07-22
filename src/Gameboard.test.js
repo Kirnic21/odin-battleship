@@ -9,7 +9,7 @@ let testShip3 = ship(2, [
   [3, 4],
   [3, 5],
 ]);
-console.log(testShip)
+console.log(testShip);
 test("Ship created", () => {
   expect(JSON.stringify(gameboard2.createShip(1, [[3, 4]])[0])).toEqual(
     JSON.stringify(testShip),
@@ -35,7 +35,7 @@ test("Check if there is a shipn in this coordinate!", () => {
     JSON.stringify(testShip),
   );
 });
-console.log(gameboard2.verifyIfHasShip([3, 4]))
+console.log(gameboard2.verifyIfHasShip([3, 4]));
 
 test("Check if it returns something if it does not exists", () => {
   expect(JSON.stringify(gameboard2.verifyIfHasShip([2, 3]))).toBe(undefined);
@@ -76,9 +76,13 @@ test("Are all ships sunk,yes", () => {
   expect(gameboard3.checkIfShipsAreSunk()).toEqual(true);
 });
 test("does it has a ship in 3,4", () => {
-  expect(gameboard3.ifHasShip([3,4])).toEqual(true);
+  expect(gameboard3.ifHasShip([3, 4])).toEqual(true);
 });
 
 test("does it has a ship in 2,3", () => {
-  expect(gameboard3.ifHasShip([2,3])).toEqual(false);
+  expect(gameboard3.ifHasShip([2, 3])).toEqual(false);
+});
+
+test("If position 3,4 has already been attacked",  () => {
+  expect(gameboard3.ifHasCoordinate([3, 4])).toEqual(true);
 });

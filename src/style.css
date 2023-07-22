@@ -1,64 +1,64 @@
 :root {
-    --grid-cols: 1;
-    --grid-rows: 1;
-  }
-  
-  .gameboard {
-    display: grid;
-    grid-gap: 0c;
-    grid-template-rows: repeat(var(--grid-rows), 1fr);
-    grid-template-columns: repeat(var(--grid-cols), 1fr);
-  }
-  #enemyGameboard{
-    display: grid;
-    grid-gap: 0c;
-    grid-template-rows: repeat(var(--grid-rows), 1fr);
-    grid-template-columns: repeat(var(--grid-cols), 1fr);
-  }
-  .grid-item {
-    padding: 1em;
-    size:5px;
-    border: 1px solid #ebebeb;
-    text-align: center;
-  }  
-  .grid-item-enemy {
-    padding: 1em;
-    size:5px;
-    border: 1px solid #ebebeb;
-    text-align: center;
-  }  
-  .ship-div{
-    background-color: #553c9a;
-  }
-  .gameboard-container{
-    display: flex;
-    justify-content: space-evenly;
-    gap:0px;
-  }
- .fuck-you{
-    display: flex;
-    justify-content: space-evenly;
-    gap:0px;
- } 
-  #header{
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 70px;
+  --grid-cols: 1;
+  --grid-rows: 1;
+}
+
+.gameboard {
+  display: grid;
+  grid-gap: 0c;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+}
+#enemyGameboard {
+  display: grid;
+  grid-gap: 0c;
+  grid-template-rows: repeat(var(--grid-rows), 1fr);
+  grid-template-columns: repeat(var(--grid-cols), 1fr);
+}
+.grid-item {
+  padding: 1em;
+  size: 5px;
+  border: 1px solid #ebebeb;
+  text-align: center;
+}
+.grid-item-enemy {
+  padding: 1em;
+  size: 5px;
+  border: 1px solid #ebebeb;
+  text-align: center;
+}
+.ship-div {
+  background-color: #553c9a;
+}
+.gameboard-container {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 0px;
+}
+.fuck-you {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 0px;
+}
+#header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 70px;
   font-weight: 600;
   background-image: linear-gradient(to left, #553c9a, #b393d3);
   color: transparent;
   background-clip: text;
-  -webkit-background-clip: text
-  }
-  #container{
-    display: flex;
-    justify-content: center;
-    gap:10vw;
-  }
-  .attacked{
-    background-color: red;
-  }
-  .missed{
-    background-color: blue;
-  }
+  -webkit-background-clip: text;
+}
+#container {
+  display: flex;
+  justify-content: center;
+  gap: 10vw;
+}
+.attacked {
+  background-color: red;
+}
+.missed {
+  background-color: blue;
+}
