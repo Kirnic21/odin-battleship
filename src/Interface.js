@@ -109,7 +109,6 @@ const inputAttack = (user, enemy) => {
       if (user.getPlayerTurn() === true) {
         let xCoordinate = parseInt(element.dataset.coordinateX);
         let yCoordinate = parseInt(element.dataset.coordinateY);
-        console.log(xCoordinate, yCoordinate);
         gameboardEnemy.receiveAttack([xCoordinate, yCoordinate]);
         if (gameboardEnemy.ifHasShip([xCoordinate, yCoordinate])) {
           element.classList.add("attacked");

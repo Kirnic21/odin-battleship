@@ -66,7 +66,7 @@ const player = (name, playerTurn) => {
             yCoordinateRandom,
           ])
         ) {
-          return "Illegal Move(repeated move)";
+          return aiBehavior(enemy);
         } else {
           enemyGameboard.receiveAttack([xCoordinateRandom, yCoordinateRandom]);
           return enemyGameboard.getCoordinates();
@@ -74,6 +74,7 @@ const player = (name, playerTurn) => {
       }
     }
   };
+  
   return {
     endTurn,
     startTurn,
