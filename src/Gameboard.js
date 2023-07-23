@@ -139,6 +139,7 @@ const gameboard = () => {
     getShipCoordinates,
     ifHasShip,
     ifHasCoordinate,
+  
   };
 };
 export { gameboard };

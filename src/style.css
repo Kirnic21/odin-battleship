@@ -71,3 +71,19 @@
 .shipDiv {
   background-color: #b393d3;
 }
+#ships{
+  display: flex;
+  justify-content: center;
+  gap:15px;
+}
+#vertical-ship{
+  display: grid;
+  grid-gap: 0c;
+  padding:1em
+}
+#container-vertical{
+  background-color: red;
+}
+.dragging{
+  background-color: #b393d3;
+}
