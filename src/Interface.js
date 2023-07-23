@@ -9,16 +9,18 @@ player2Gameboard.createShip(2, [[1, 2]]);
 player2Gameboard.createShip(2, [[3, 4]]);
 player2Gameboard.createShip(2, [[0, 0]]);
 
-  function removeAllChildNodes(parent) {
-    while (parent.firstChild) {
-        parent.removeChild(parent.firstChild);
-    }
+function removeAllChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
 
-const container = document.querySelector(".gameboard");
-const enemyContainer = document.querySelector("#enemyGameboard");
 const makePlayerGrid = () => {
   let board = player1Gameboard.createBoard();
+  const gamboardContainer = document.querySelector(".gameboard-container");
+  const container = document.createElement("div");
+  container.classList.add("gameboard");
+  gamboardContainer.appendChild(container);
   container.style.setProperty("--grid-rows", 10);
   container.style.setProperty("--grid-cols", 10);
   for (let i in board) {
@@ -33,6 +35,10 @@ const makePlayerGrid = () => {
 };
 const makeEnemyGrid = () => {
   let board = player2Gameboard.createBoard();
+  const gamboardContainer = document.querySelector(".gameboard-container2");
+  const enemyContainer = document.createElement("div");
+  enemyContainer.classList.add("gameboard");
+  gamboardContainer.appendChild(enemyContainer);
   enemyContainer.style.setProperty("--grid-rows", 10);
   enemyContainer.style.setProperty("--grid-cols", 10);
   for (let i in board) {
@@ -155,5 +161,5 @@ export {
   displayCoordinatesEnemy,
   displayReceivedAttack,
   inputAttack,
-  removeAllChildNodes
+  removeAllChildNodes,
 };

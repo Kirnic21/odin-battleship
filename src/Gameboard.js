@@ -41,7 +41,7 @@ const gameboard = () => {
   };
   const ifHasCoordinate = (coordinate) => {
     let stringfiedCoordinate = JSON.stringify(coordinate);
-  
+
     let coordinateArray = JSON.stringify(getCoordinates());
 
     if (coordinateArray.includes(stringfiedCoordinate)) {
@@ -138,7 +138,7 @@ const gameboard = () => {
     getShipCoordinatesArray,
     getShipCoordinates,
     ifHasShip,
-    ifHasCoordinate
+    ifHasCoordinate,
   };
 };
 export { gameboard };

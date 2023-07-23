@@ -83,6 +83,6 @@ test("does it has a ship in 2,3", () => {
   expect(gameboard3.ifHasShip([2, 3])).toEqual(false);
 });
 
-test("If position 3,4 has already been attacked",  () => {
+test("If position 3,4 has already been attacked", () => {
   expect(gameboard3.ifHasCoordinate([3, 4])).toEqual(true);
 });

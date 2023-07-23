@@ -62,3 +62,12 @@
 .missed {
   background-color: blue;
 }
+.ship {
+  width: 15px;
+}
+.dropOver {
+  background-color: purple;
+}
+.shipDiv {
+  background-color: #b393d3;
+}

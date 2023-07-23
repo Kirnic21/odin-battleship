@@ -6,8 +6,8 @@ const player = (name, playerTurn) => {
   const getGameboard = () => {
     return playerGameboard;
   };
-  let playerName = name
-  const getPlayerName = (playerName)=>name;
+  let playerName = name;
+  const getPlayerName = (playerName) => name;
   const getEnemy = (enemy) => enemy;
   let isAi = false;
   const getPlayerTurn = () => itsPlayerTurn;
@@ -74,7 +74,7 @@ const player = (name, playerTurn) => {
       }
     }
   };
-  
+
   return {
     endTurn,
     startTurn,

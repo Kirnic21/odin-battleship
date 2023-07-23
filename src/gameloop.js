@@ -1,6 +1,14 @@
 import { player } from "./player";
 import { gameboard } from "./Gameboard";
-import { displayReceivedAttack, inputAttack, aiInputAttack, removeAllChildNodes ,makePlayerGrid,makeEnemyGrid} from "./Interface";
+import {
+  displayReceivedAttack,
+  inputAttack,
+  aiInputAttack,
+  removeAllChildNodes,
+  makePlayerGrid,
+  makeEnemyGrid,
+} from "./Interface";
+import { dragDrop } from "./dragDrop";
 let player1 = player("a", true);
 let player2 = player(0, false);
 const playerTurnAttack = (user, enemy) => {
@@ -22,17 +30,17 @@ const cpuAttack = (cpu, user) => {
   }
 };
 const gameLoop = (user, cpu) => {
-  const userGameboardDOM = document.querySelectorAll(".grid-item");
   const enemyGameboardDOM = document.querySelectorAll(".grid-item-enemy");
   const gameboardEnemy = cpu.getGameboard();
-  const container = document.querySelector("#container")
+  const gameboardContainer = document.querySelector(".gameboard-container");
+  const gameboardContainer2 = document.querySelector(".gameboard-container2");
+
   enemyGameboardDOM.forEach((element) => {
     element.addEventListener("click", () => {
       if (user.getPlayerTurn() === true) {
         let xCoordinate = parseInt(element.dataset.coordinateX);
         let yCoordinate = parseInt(element.dataset.coordinateY);
 
-       
         if (
           gameboardEnemy.ifHasShip([xCoordinate, yCoordinate]) &&
           !gameboardEnemy.ifHasCoordinate([xCoordinate, yCoordinate])
@@ -46,22 +54,25 @@ const gameLoop = (user, cpu) => {
             cpu.getGameboard().checkIfShipsAreSunk() === true ||
             user.getGameboard().checkIfShipsAreSunk() === true
           ) {
-            if(cpu.getGameboard().checkIfShipsAreSunk() === true)
-            {
-            const wonText = document.createElement("div")
-            wonText.textContent = user.getPlayerName() + " won"
-            removeAllChildNodes(container)
-            container.appendChild(wonText)
+            if (cpu.getGameboard().checkIfShipsAreSunk() === true) {
+              const wonText = document.createElement("div");
+              wonText.textContent = user.getPlayerName() + " won";
+              removeAllChildNodes(gameboardContainer);
+              removeAllChildNodes(gameboardContainer2);
+              wonText.classList.add("wonText");
+              container.appendChild(wonText);
+            } else if (user.getGameboard().checkIfShipsAreSunk() === true) {
+              const wonText = document.createElement("div");
+              wonText.textContent = "CPU won ";
+              removeAllChildNodes(gameboardContainer);
+              removeAllChildNodes(gameboardContainer2);
+              wonText.classList.add("wonText");
+              container.appendChild(wonText);
             }
-            else if(user.getGameboard().checkIfShipsAreSunk() === true)
-            {
-            const wonText = document.createElement("div")
-            wonText.textContent = "CPU won "
-            removeAllChildNodes(container)
-            container.appendChild(wonText)
-            } 
           }
-        } else if (!gameboardEnemy.ifHasCoordinate([xCoordinate, yCoordinate])) {
+        } else if (
+          !gameboardEnemy.ifHasCoordinate([xCoordinate, yCoordinate])
+        ) {
           gameboardEnemy.receiveAttack([xCoordinate, yCoordinate]);
           element.classList.add("missed");
           user.endTurn();
@@ -71,29 +82,49 @@ const gameLoop = (user, cpu) => {
             cpu.getGameboard().checkIfShipsAreSunk() === true ||
             user.getGameboard().checkIfShipsAreSunk() === true
           ) {
-            if(cpu.getGameboard().checkIfShipsAreSunk() === true)
-            {
-            const wonText = document.createElement("div")
-            wonText.textContent = user.getPlayerName() + " won"
-            removeAllChildNodes(container)
-            container.appendChild(wonText)
+            if (cpu.getGameboard().checkIfShipsAreSunk() === true) {
+              const wonText = document.createElement("div");
+              wonText.textContent = user.getPlayerName() + " won";
+
+              wonText.classList.add("wonText");
+
+              removeAllChildNodes(gameboardContainer);
+              removeAllChildNodes(gameboardContainer2);
+              container.appendChild(wonText);
+            } else if (user.getGameboard().checkIfShipsAreSunk() === true) {
+              const wonText = document.createElement("div");
+              wonText.textContent = "CPU won ";
+              wonText.classList.add("wonText");
+              removeAllChildNodes(gameboardContainer);
+              removeAllChildNodes(gameboardContainer2);
+              container.appendChild(wonText);
             }
-            else if(user.getGameboard().checkIfShipsAreSunk() === true)
-            {
-            const wonText = document.createElement("div")
-            wonText.textContent = "CPU won "
-            removeAllChildNodes(container)
-            container.appendChild(wonText)
-            } 
           }
         }
       }
     });
   });
 };
-const game = (user,cpu)=>{
-  makePlayerGrid();
-  makeEnemyGrid();
-  gameLoop(user,cpu)
-}
-export { playerTurnAttack, cpuAttack, gameLoop,game };
+
+const game = (name) => {
+  const removeText = document.querySelector(".wonText");
+  if (removeText !== null) {
+    removeText.remove();
+    const player1 = player(name, true);
+    const cpu = player(0, false);
+    makePlayerGrid();
+    makeEnemyGrid();
+    gameLoop(player1, cpu);
+    dragDrop(5, player1);
+  } else {
+    console.log(removeText);
+    const player1 = player(name, true);
+    const cpu = player(0, false);
+    makePlayerGrid();
+    makeEnemyGrid();
+    gameLoop(player1, cpu);
+    dragDrop(5, player1);
+  }
+};
+
+export { playerTurnAttack, cpuAttack, gameLoop, game };

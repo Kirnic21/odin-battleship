@@ -11,9 +11,10 @@ import {
   aiInputAttack,
 } from "./Interface";
 import { player } from "./player";
-import { cpuAttack, gameLoop, playerTurnAttack,game } from "./gameloop";
-let player1 = player("1", true);
-let player2 = player(0, true);
-player1.getGameboard().createShip(1,[[2,3]])
-player2.getGameboard().createShip(1,[[2,3]])
-game(player1,player2)
+import { cpuAttack, gameLoop, playerTurnAttack, game } from "./gameloop";
+import { dragDrop } from "./dragDrop";
+const button = document.querySelector("#start");
+let gameOn = false;
+button.addEventListener("click", () => {
+  game("Kirnic");
+});
