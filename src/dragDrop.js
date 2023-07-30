@@ -1,8 +1,13 @@
+import { displayReceivedAttack, removeAllChildNodes } from "./Interface";
+
 const dragDropHorizontal = (length, player) => {
   const gridItems = document.querySelectorAll(".grid-item");
+  const container = document.querySelector(".gameboard-container")
+  let clicked = false
   gridItems.forEach((element) => {
-
-    element.addEventListener("dragover", (event) => {
+    
+    element.addEventListener("mouseover", function trail(event) {
+      if(clicked === false){
       event.preventDefault();
       let x = event.target.dataset.coordinateX;
       let y = event.target.dataset.coordinateY;
@@ -24,42 +29,65 @@ const dragDropHorizontal = (length, player) => {
       for (let i in paintDivs) {
         paintDivs[i].classList.add("dropOver");
       }
-    });
-    element.addEventListener("dragleave", () => {
+    }else{
+      return false
+    }},
+    element.addEventListener("mouseleave", function remove(){
+      if(clicked === false)
+      {
       let a = document.querySelectorAll(".grid-item.dropOver");
       a.forEach((element) => {
         element.classList.remove("dropOver");
       });
-    });
-    element.addEventListener("drop", (event) => {
+      element.removeEventListener("click",remove)
+    }
+    }
+    
+    )
+  
+  )})
+    container.addEventListener("click", function clickCreate(event) {
+   
       let dropOver = document.querySelectorAll(".grid-item.dropOver");
       let lengthDropOver = dropOver.length;
 
       let coordArray = [];
+      gridItems.forEach((element)=>{
+        element.removeEventListener("mouseleave",remove,true)
+        element.removeEventListener("mouseover",trail,true)
+      })
       dropOver.forEach((element) => {
         coordArray.push([
           element.dataset.coordinateX,
           element.dataset.coordinateY,
         ]);
       });
+   
       let ship = player.getGameboard().createShip(lengthDropOver, coordArray);
-      console.log(ship);
-      if (ship === "no") {
-        alert("stop right there criminal scum, dont put a ship there!");
+      console.log(ship)
+      gridItems.forEach((element)=>{
+        
+        element.removeEventListener("mouseleave",remove,true)
+        element.removeEventListener("mouseover",trail,true)
+        })
+      if (ship === false) {
+        alert("stop right there criminal scum, dont put a ship there!");//temporary alert
         dropOver.forEach((element) => {
           element.classList.remove("dropOver");
         });
       } else {
-        dropOver.forEach((element) => {
-          element.classList.add("shipDiv");
+        dropOver.forEach((element) => {element.classList.add("shipDiv")
+        clicked = true
+        console.log(clicked)
         });
-        return
-      }
-    });
-  });
-  return
-};
+        }
+      },{once:true}
+    )
+  };
+
+
 const dragDropVertical = (length, player) => {
+  let clicked = false
   const gridItems = document.querySelectorAll(".grid-item");
   gridItems.forEach((element) => {
     element.addEventListener("dragover", (event) => {
@@ -91,7 +119,7 @@ const dragDropVertical = (length, player) => {
         element.classList.remove("dropOver");
       });
     });
-    element.addEventListener("drop", (event) => {
+    element.addEventListener("drop", function click(event) {
       let dropOver = document.querySelectorAll(".grid-item.dropOver");
       let lengthDropOver = dropOver.length;
 
@@ -113,12 +141,69 @@ const dragDropVertical = (length, player) => {
         dropOver.forEach((element) => {
           element.classList.add("shipDiv");
         });
-        return
+        
       }
     });
   });
-
 };
+const dragDrop = (player)=>{
+  dragDropHorizontal(player,5)
+}
+function click(event) {
+  let dropOver = document.querySelectorAll(".grid-item.dropOver");
+  let lengthDropOver = dropOver.length;
+
+  let coordArray = [];
+  dropOver.forEach((element) => {
+    coordArray.push([
+      element.dataset.coordinateX,
+      element.dataset.coordinateY,
+    ]);
+  });
+  let ship = player.getGameboard().createShip(lengthDropOver, coordArray);
+  console.log(ship);
+  if (ship === "no") {
+    alert("stop right there criminal scum, dont put a ship there!");
+    dropOver.forEach((element) => {
+      element.classList.remove("dropOver");
+    });
+  } else {
+    dropOver.forEach((element) => {
+      element.classList.add("shipDiv");
+    });
+    return
+  }
+}
+function trail(event) {
+      event.preventDefault();
+      let x = event.target.dataset.coordinateX;
+      let y = event.target.dataset.coordinateY;
+
+      let x_array = [];
+      let paintDivs = [];
+      for (let i = 0; i < length; i++) {
+        let a = parseInt(x) + i;
+        x_array.push(a);
+      }
+      for (let i in x_array) {
+        let div = document.querySelector(
+          `.grid-item[data-coordinate-x='${x_array[i]}'][data-coordinate-y='${y}']`,
+        );
+        if (div !== null) {
+          paintDivs.push(div);
+        }
+      }
+      for (let i in paintDivs) {
+        paintDivs[i].classList.add("dropOver");
+      }
+    };
+    function remove(){
+      let a = document.querySelectorAll(".grid-item.dropOver");
+      a.forEach((element) => {
+        element.classList.remove("dropOver");
+      });
+      element.removeEventListener("click",remove)
+    };
 const dragDrop = (length,player1)=>{
   const vertical = document.querySelector("#vertical-ship")
   let dragStuff = true
@@ -135,4 +220,4 @@ const dragDrop = (length,player1)=>{
     dragStuff = false
 })
 }
-export { dragDropHorizontal ,dragDropVertical,dragDrop};
+export { dragDropHorizontal ,dragDropVertical};

@@ -8,7 +8,8 @@ import {
   makePlayerGrid,
   makeEnemyGrid,
 } from "./Interface";
-import { dragDrop, dragDropHorizontal, dragDropVertical, exausted } from "./dragDrop";
+import { dragDrop, dragDropHorizontal, dragDropVertical,} from "./dragDrop";
+
 let player1 = player("a", true);
 let player2 = player(0, false);
 const playerTurnAttack = (user, enemy) => {
@@ -116,7 +117,7 @@ const game = (name) => {
     makePlayerGrid();
     makeEnemyGrid();
     gameLoop(player1, cpu);
-    exausted(5,player1)
+    dragDropHorizontal(5,player1)
   } else {
     console.log(removeText);
     const player1 = player(name, true);
@@ -124,7 +125,7 @@ const game = (name) => {
     makePlayerGrid();
     makeEnemyGrid();
     gameLoop(player1, cpu);
-    dragDrop(5,player1)
+   dragDropHorizontal(5,player1)
   }
 };
 

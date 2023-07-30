@@ -74,7 +74,9 @@ const player = (name, playerTurn) => {
       }
     }
   };
-
+  const placeShips = ()=>{
+    
+  }
   return {
     endTurn,
     startTurn,

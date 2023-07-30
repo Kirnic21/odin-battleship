@@ -51,8 +51,8 @@ const makeEnemyGrid = () => {
     }
   }
 };
-const displayCoordinates = () => {
-  const coordinateArray = player1Gameboard.getShipCoordinatesArray();
+const displayCoordinates = (player) => {
+  const coordinateArray = player.getGameboard().getShipCoordinatesArray();
 
   const coordinateArrayStringfied = JSON.stringify(coordinateArray);
   const gridItems = document.querySelectorAll(".grid-item");
@@ -152,7 +152,39 @@ const aiInputAttack = (coordinates, user, enemy) => {
     }
   });
 };
+const placeShipsDOM = (player1)=>{
+    const container = document.querySelector(".gameboard-container")
+    const gridItems = document.querySelectorAll(".grid-items")
+    container.addEventListener("click", function createShip(){
+     const trail = (event)=>{
+     event.preventDefault();
+     let x = event.target.dataset.coordinateX;
+     let y = event.target.dataset.coordinateY;
 
+     let x_array = [];
+     let paintDivs = [];
+     for (let i = 0; i < length; i++) {
+       let a = parseInt(x) + i;
+       x_array.push(a);
+     }
+     for (let i in x_array) {
+       let div = document.querySelector(
+         `.grid-item[data-coordinate-x='${x_array[i]}'][data-coordinate-y='${y}']`,
+       );
+       if (div !== null) {
+         paintDivs.push(div);
+       }
+     }
+     for (let i in paintDivs) {
+       paintDivs[i].classList.add("dropOver");
+     }
+    }
+    gridItems.forEach((element) => {
+      element.addEventListener("mouseover",trail)
+    })
+    }
+)
+}
 export {
   aiInputAttack,
   makePlayerGrid,
@@ -162,4 +194,5 @@ export {
   displayReceivedAttack,
   inputAttack,
   removeAllChildNodes,
+  placeShipsDOM
 };
