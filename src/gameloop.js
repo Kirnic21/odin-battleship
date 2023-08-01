@@ -115,17 +115,17 @@ const game = (name) => {
     const player1 = player(name, true);
     const cpu = player(0, false);
     makePlayerGrid();
-    makeEnemyGrid();
+
     gameLoop(player1, cpu);
-    dragDropHorizontal(5,player1)
+    dragDropHorizontal(5,player1,cpu)
   } else {
     console.log(removeText);
     const player1 = player(name, true);
     const cpu = player(0, false);
+   
     makePlayerGrid();
-    makeEnemyGrid();
     gameLoop(player1, cpu);
-   dragDropHorizontal(5,player1)
+   dragDropHorizontal(5,player1,cpu)
   }
 };
 

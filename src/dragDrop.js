@@ -1,22 +1,27 @@
 import { displayReceivedAttack, removeAllChildNodes } from "./Interface";
-
-const dragDropHorizontal = (length, player) => {
+import { makeEnemyGrid ,shipsEnemyDom} from "./Interface";
+const dragDropHorizontal = (length, player,enemy) => {
   const gridItems = document.querySelectorAll(".grid-item");
   const container = document.querySelector(".gameboard-container")
   let clicked = false
+  let isVertical = true
+  let isHorizontal = false
+  let size = length
+ 
   gridItems.forEach((element) => {
     
     element.addEventListener("mouseover", function trail(event) {
-      if(clicked === false){
+      if(clicked === false && isHorizontal === true){
       event.preventDefault();
       let x = event.target.dataset.coordinateX;
       let y = event.target.dataset.coordinateY;
-
+     
       let x_array = [];
       let paintDivs = [];
-      for (let i = 0; i < length; i++) {
+      for (let i = 0; i < size; i++) {
         let a = parseInt(x) + i;
         x_array.push(a);
+        
       }
       for (let i in x_array) {
         let div = document.querySelector(
@@ -32,6 +37,43 @@ const dragDropHorizontal = (length, player) => {
     }else{
       return false
     }},
+      element.addEventListener("mouseover", function clickover  (event){
+        if(clicked === false && isVertical === true){
+        event.preventDefault();
+        let x = event.target.dataset.coordinateX;
+        let y = event.target.dataset.coordinateY;
+  
+        let y_array = [];
+        let paintDivs = [];
+        for (let i = 0; i < size; i++) {
+          let a = parseInt(y) + i;
+          y_array.push(a);
+        }
+        for (let i in y_array) {
+          let div = document.querySelector(
+            `.grid-item[data-coordinate-x='${x}'][data-coordinate-y='${y_array[i]}']`,
+          );
+          if (div !== null) {
+            paintDivs.push(div);
+          }
+        }
+        for (let i in paintDivs) {
+          paintDivs[i].classList.add("dropOver");
+        }
+   } }),
+   element.addEventListener("dblclick", (event) => {
+    if(isVertical === true)
+    {
+      isVertical = false
+      isHorizontal = true
+    }
+    else if(isHorizontal ===  true)
+    {
+      isVertical = true
+      isHorizontal = false
+
+    }
+   }),
     element.addEventListener("mouseleave", function remove(){
       if(clicked === false)
       {
@@ -46,8 +88,24 @@ const dragDropHorizontal = (length, player) => {
     )
   
   )})
-    container.addEventListener("click", function clickCreate(event) {
-   
+    container.addEventListener("click", (event) => {
+      if(isVertical === true)
+      {
+        isVertical = false
+        isHorizontal = true
+      }
+      else if(isHorizontal ===  true)
+      {
+        isVertical = true
+        isHorizontal = false
+  
+      }
+     }),
+    container.addEventListener("dblclick", function clickCreate(event) {
+      if(size === 0)
+      {
+        makeEnemyGrid();
+      }
       let dropOver = document.querySelectorAll(".grid-item.dropOver");
       let lengthDropOver = dropOver.length;
 
@@ -70,19 +128,25 @@ const dragDropHorizontal = (length, player) => {
         element.removeEventListener("mouseleave",remove,true)
         element.removeEventListener("mouseover",trail,true)
         })
-      if (ship === false) {
+      if (ship === "no" || lengthDropOver<size) {
         alert("stop right there criminal scum, dont put a ship there!");//temporary alert
         dropOver.forEach((element) => {
           element.classList.remove("dropOver");
         });
       } else {
+        size = size-1
         dropOver.forEach((element) => {element.classList.add("shipDiv")
-        clicked = true
+        if(size === 0)
+        {
+          makeEnemyGrid();
+          shipsEnemyDom(enemy)
+        }
         console.log(clicked)
         });
         }
-      },{once:true}
+      },
     )
+    
   };
 
 
@@ -146,9 +210,7 @@ const dragDropVertical = (length, player) => {
     });
   });
 };
-const dragDrop = (player)=>{
-  dragDropHorizontal(player,5)
-}
+
 function click(event) {
   let dropOver = document.querySelectorAll(".grid-item.dropOver");
   let lengthDropOver = dropOver.length;

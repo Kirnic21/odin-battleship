@@ -1,3 +1,4 @@
+import { isFirstDayOfMonth } from "date-fns";
 import { gameboard } from "./Gameboard";
 import { player } from "./player";
 let player1 = player("input", true);
@@ -68,8 +69,9 @@ const displayCoordinates = (player) => {
     }
   });
 };
-const displayCoordinatesEnemy = () => {
-  const coordinateArray = player2Gameboard.getShipCoordinatesArray();
+const displayCoordinatesEnemy = (enemy) => {
+  const coordinateArray = enemy.getGameboard().getShipCoordinatesArray();
+
 
   const coordinateArrayStringfied = JSON.stringify(coordinateArray);
   const gridItems = document.querySelectorAll(".grid-item-enemy");
@@ -185,6 +187,52 @@ const placeShipsDOM = (player1)=>{
     }
 )
 }
+const shipsEnemyDom = (enemy)=>{
+  let enemyGameboard = enemy.getGameboard()
+  const enemyGameboardDOM = document.querySelector(".gameboard")
+  const gridItems = document.querySelectorAll(".grid-item-enemy")
+  let orientation = Math.floor(Math.random()*1)
+  let initialPositionX = Math.floor(Math.random() * 9)
+  let initialPositionY = Math.floor(Math.random()*9)
+
+  if(orientation === 0)
+  {
+    for(let i = 0 ; i<5;i++)
+    {
+      let array = []
+      let size  = 5-i
+      for(let j = 0;j<size;j++)
+      {
+        if(initialPositionX+j>9 || initialPositionX+j<0)
+        {
+          return shipsEnemyDom(enemy)
+        }
+        array.push([initialPositionX+j,initialPositionY])
+      }
+      enemyGameboard.createShip(size,array)
+      displayCoordinatesEnemy(enemy)
+    }
+  }
+  else if(orientation === 1)
+  {
+    for(let i = 0 ; i<5;i++)
+    {
+      let array = []
+      let size  = 5-i
+      for(let j = 0;j<size;j++)
+      {
+        if(initialPositionY+j>9 || initialPositionY+j<0)
+        {
+          return shipsEnemyDom(enemy)
+        }
+        array.push([initialPositionX,initialPositionY+j])
+      }
+      enemyGameboard.createShip(size,array)
+      displayCoordinatesEnemy(enemy)
+    }
+  }
+  console.log(enemyGameboard.getShipCoordinatesArray())
+}
 export {
   aiInputAttack,
   makePlayerGrid,
@@ -194,5 +242,6 @@ export {
   displayReceivedAttack,
   inputAttack,
   removeAllChildNodes,
-  placeShipsDOM
+  placeShipsDOM,
+  shipsEnemyDom,
 };
