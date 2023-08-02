@@ -56,8 +56,8 @@ const player = (name, playerTurn) => {
 
     if (getIsAi() === true) {
       if (getPlayerTurn() === true) {
-        let xCoordinateRandom = Math.floor(Math.random() * 9);
-        let yCoordinateRandom = Math.floor(Math.random() * 9);
+        let xCoordinateRandom = parseInt(Math.floor(Math.random() * 9));
+        let yCoordinateRandom = parseInt(Math.floor(Math.random() * 9));
 
         const enemyGameboard = getEnemy(enemy).getGameboard();
         if (
@@ -74,9 +74,7 @@ const player = (name, playerTurn) => {
       }
     }
   };
-  const placeShips = ()=>{
-    
-  }
+
   return {
     endTurn,
     startTurn,

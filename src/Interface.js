@@ -117,6 +117,7 @@ const inputAttack = (user, enemy) => {
       if (user.getPlayerTurn() === true) {
         let xCoordinate = parseInt(element.dataset.coordinateX);
         let yCoordinate = parseInt(element.dataset.coordinateY);
+        console.log(typeof xCoordinate)
         gameboardEnemy.receiveAttack([xCoordinate, yCoordinate]);
         if (gameboardEnemy.ifHasShip([xCoordinate, yCoordinate])) {
           element.classList.add("attacked");
@@ -133,7 +134,7 @@ const inputAttack = (user, enemy) => {
 };
 const aiInputAttack = (coordinates, user, enemy) => {
   const userCoordinates = document.querySelectorAll(".grid-item");
-  let gameboardEnemy = enemy.getGameboard();
+  let enemyGameboard = enemy.getGameboard();
   userCoordinates.forEach((element) => {
     let xCoordinate = parseInt(element.dataset.coordinateX);
     let yCoordinate = parseInt(element.dataset.coordinateY);
@@ -143,11 +144,15 @@ const aiInputAttack = (coordinates, user, enemy) => {
         coordinates[i][0] === xCoordinate &&
         coordinates[i][1] === yCoordinate
       ) {
-        if (gameboardEnemy.ifHasShip([xCoordinate, yCoordinate])) {
+        if (enemyGameboard.ifHasShip([parseInt(xCoordinate), parseInt(yCoordinate)])) {
+
+          console.log(enemyGameboard.ifHasShip([xCoordinate,yCoordinate]))
+          element.classList.remove("shipDiv")
           element.classList.add("attacked");
           user.endTurn();
         } else {
-          element.classList.add("missed");
+          element.classList.remove("shipDiv")
+          element.classList.add("missed")
           user.endTurn();
         }
       }
@@ -160,8 +165,8 @@ const placeShipsDOM = (player1)=>{
     container.addEventListener("click", function createShip(){
      const trail = (event)=>{
      event.preventDefault();
-     let x = event.target.dataset.coordinateX;
-     let y = event.target.dataset.coordinateY;
+     let x = parseInt(event.target.dataset.coordinateX);
+     let y = parseInt(event.target.dataset.coordinateY);
 
      let x_array = [];
      let paintDivs = [];
@@ -187,48 +192,74 @@ const placeShipsDOM = (player1)=>{
     }
 )
 }
-const shipsEnemyDom = (enemy)=>{
+const shipsEnemyDom = (enemy,quantity)=>{
   let enemyGameboard = enemy.getGameboard()
   const enemyGameboardDOM = document.querySelector(".gameboard")
   const gridItems = document.querySelectorAll(".grid-item-enemy")
-  let orientation = Math.floor(Math.random()*1)
-  let initialPositionX = Math.floor(Math.random() * 9)
-  let initialPositionY = Math.floor(Math.random()*9)
+  let orientation = Math.floor(Math.random()*2)
+  
 
   if(orientation === 0)
   {
+  
     for(let i = 0 ; i<5;i++)
     {
+      let initialPositionX = parseInt(Math.floor(Math.random() * 9))
+      let initialPositionY = parseInt(Math.floor(Math.random()*9))
       let array = []
-      let size  = 5-i
+      let size  = quantity-i
+      console.log(typeof initialPositionX)
+      
       for(let j = 0;j<size;j++)
       {
         if(initialPositionX+j>9 || initialPositionX+j<0)
         {
-          return shipsEnemyDom(enemy)
+          
+          return shipsEnemyDom(enemy,size)
         }
+        if(!enemyGameboard.ifHasShip([parseInt(initialPositionX + j),parseInt(initialPositionY)]))
+        {
+
+        
         array.push([initialPositionX+j,initialPositionY])
+        }
+        else{
+          
+          return shipsEnemyDom(enemy,size)
+        }
       }
       enemyGameboard.createShip(size,array)
-      displayCoordinatesEnemy(enemy)
+      
+      
     }
+    
   }
+  
   else if(orientation === 1)
   {
     for(let i = 0 ; i<5;i++)
     {
+      let initialPositionX = parseInt(Math.floor(Math.random() * 9))
+      let initialPositionY = parseInt(Math.floor(Math.random()*9))
       let array = []
-      let size  = 5-i
+      let size  = quantity-i
       for(let j = 0;j<size;j++)
       {
         if(initialPositionY+j>9 || initialPositionY+j<0)
         {
-          return shipsEnemyDom(enemy)
+          return shipsEnemyDom(enemy,size)
         }
+        if(!enemyGameboard.ifHasShip([initialPositionX,initialPositionY+j]))
+        {
         array.push([initialPositionX,initialPositionY+j])
+        }
+        else{
+          
+          return shipsEnemyDom(enemy,size)
+        }
       }
       enemyGameboard.createShip(size,array)
-      displayCoordinatesEnemy(enemy)
+      
     }
   }
   console.log(enemyGameboard.getShipCoordinatesArray())

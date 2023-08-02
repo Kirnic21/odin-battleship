@@ -7,6 +7,7 @@ import {
   removeAllChildNodes,
   makePlayerGrid,
   makeEnemyGrid,
+  shipsEnemyDom,
 } from "./Interface";
 import { dragDrop, dragDropHorizontal, dragDropVertical,} from "./dragDrop";
 
@@ -41,7 +42,7 @@ const gameLoop = (user, cpu) => {
       if (user.getPlayerTurn() === true) {
         let xCoordinate = parseInt(element.dataset.coordinateX);
         let yCoordinate = parseInt(element.dataset.coordinateY);
-
+      
         if (
           gameboardEnemy.ifHasShip([xCoordinate, yCoordinate]) &&
           !gameboardEnemy.ifHasCoordinate([xCoordinate, yCoordinate])
@@ -116,8 +117,8 @@ const game = (name) => {
     const cpu = player(0, false);
     makePlayerGrid();
 
-    gameLoop(player1, cpu);
     dragDropHorizontal(5,player1,cpu)
+
   } else {
     console.log(removeText);
     const player1 = player(name, true);
@@ -126,6 +127,7 @@ const game = (name) => {
     makePlayerGrid();
     gameLoop(player1, cpu);
    dragDropHorizontal(5,player1,cpu)
+
   }
 };
 

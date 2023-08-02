@@ -1,5 +1,6 @@
 import { displayReceivedAttack, removeAllChildNodes } from "./Interface";
 import { makeEnemyGrid ,shipsEnemyDom} from "./Interface";
+import { gameLoop } from "./gameloop";
 const dragDropHorizontal = (length, player,enemy) => {
   const gridItems = document.querySelectorAll(".grid-item");
   const container = document.querySelector(".gameboard-container")
@@ -116,8 +117,8 @@ const dragDropHorizontal = (length, player,enemy) => {
       })
       dropOver.forEach((element) => {
         coordArray.push([
-          element.dataset.coordinateX,
-          element.dataset.coordinateY,
+          parseInt(element.dataset.coordinateX),
+          parseInt(element.dataset.coordinateY),
         ]);
       });
    
@@ -139,7 +140,9 @@ const dragDropHorizontal = (length, player,enemy) => {
         if(size === 0)
         {
           makeEnemyGrid();
-          shipsEnemyDom(enemy)
+          shipsEnemyDom(enemy,5)
+          gameLoop(player,enemy)
+
         }
         console.log(clicked)
         });
