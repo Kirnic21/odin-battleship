@@ -262,7 +262,6 @@ const shipsEnemyDom = (enemy,quantity)=>{
       
     }
   }
-  console.log(enemyGameboard.getShipCoordinatesArray())
 }
 export {
   aiInputAttack,

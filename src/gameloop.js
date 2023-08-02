@@ -9,7 +9,7 @@ import {
   makeEnemyGrid,
   shipsEnemyDom,
 } from "./Interface";
-import { dragDrop, dragDropHorizontal, dragDropVertical,} from "./dragDrop";
+import { gameLoopDom} from "./dragDrop";
 
 let player1 = player("a", true);
 let player2 = player(0, false);
@@ -61,15 +61,16 @@ const gameLoop = (user, cpu) => {
               wonText.textContent = user.getPlayerName() + " won";
               removeAllChildNodes(gameboardContainer);
               removeAllChildNodes(gameboardContainer2);
-              wonText.classList.add("wonText");
-              container.appendChild(wonText);
+              
+              const instructions = document.querySelector("#startgame")
+              instructions.textContent = "player 1 won! reload the page to play again"
+              
             } else if (user.getGameboard().checkIfShipsAreSunk() === true) {
-              const wonText = document.createElement("div");
-              wonText.textContent = "CPU won ";
+              const instructions = document.querySelector("#startgame")
+              instructions.textContent = "player 1 won! reload the page to play again"
               removeAllChildNodes(gameboardContainer);
               removeAllChildNodes(gameboardContainer2);
-              wonText.classList.add("wonText");
-              container.appendChild(wonText);
+              
             }
           }
         } else if (
@@ -86,20 +87,20 @@ const gameLoop = (user, cpu) => {
           ) {
             if (cpu.getGameboard().checkIfShipsAreSunk() === true) {
               const wonText = document.createElement("div");
-              wonText.textContent = user.getPlayerName() + " won";
-
-              wonText.classList.add("wonText");
-
+          
+              const instructions = document.querySelector("#startgame")
+              instructions.textContent = "player 1 won! reload the page to play again"
               removeAllChildNodes(gameboardContainer);
               removeAllChildNodes(gameboardContainer2);
               container.appendChild(wonText);
             } else if (user.getGameboard().checkIfShipsAreSunk() === true) {
-              const wonText = document.createElement("div");
-              wonText.textContent = "CPU won ";
-              wonText.classList.add("wonText");
+              
+              const instructions = document.querySelector("#startgame")
+              instructions.textContent = "player 1 won! reload the page to play again"
               removeAllChildNodes(gameboardContainer);
               removeAllChildNodes(gameboardContainer2);
-              container.appendChild(wonText);
+          
+              
             }
           }
         }
@@ -113,21 +114,20 @@ const game = (name) => {
   const removeText = document.querySelector(".wonText");
   if (removeText !== null) {
     removeText.remove();
-    const player1 = player(name, true);
-    const cpu = player(0, false);
+    let player1 = player(name, true);
+    let cpu = player(0, false);
     makePlayerGrid();
 
-    dragDropHorizontal(5,player1,cpu)
-
+    gameLoopDom(5,player1,cpu)
+    return
   } else {
-    console.log(removeText);
-    const player1 = player(name, true);
-    const cpu = player(0, false);
+    
+    let player1 = player(name, true);
+    let cpu = player(0, false);
    
     makePlayerGrid();
-    gameLoop(player1, cpu);
-   dragDropHorizontal(5,player1,cpu)
-
+    gameLoopDom(5,player1,cpu)
+    return
   }
 };
 

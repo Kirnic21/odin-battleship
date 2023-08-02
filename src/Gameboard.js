@@ -3,6 +3,11 @@ import { ship } from "./Ship";
 const gameboard = () => {
   let shipArray = [];
   const getShipArray = () => shipArray;
+  const cleanShipArray =()=>{
+    let shipArray = getShipArray()
+    shipArray = []
+    return shipArray
+  }
   const verifyIfhasAShipInCoordinate = (position) => {
     for (let i in position) {
       if (verifyIfHasShip(position[i]) !== undefined) {
@@ -54,6 +59,7 @@ const gameboard = () => {
   const getShipCoordinatesArray = () => shipCoordinatesArray;
   const createShip = (length, position) => {
     let coordinateArray = getShipCoordinatesArray();
+    
     if (!equal2DArray(coordinateArray, position)) {
       let newShip = ship(length, position);
       let shiparray = getShipArray();
@@ -140,7 +146,7 @@ const gameboard = () => {
     getShipCoordinates,
     ifHasShip,
     ifHasCoordinate,
-  
+    cleanShipArray
   };
 };
 export { gameboard };

@@ -1,7 +1,7 @@
 import { displayReceivedAttack, removeAllChildNodes } from "./Interface";
 import { makeEnemyGrid ,shipsEnemyDom} from "./Interface";
 import { gameLoop } from "./gameloop";
-const dragDropHorizontal = (length, player,enemy) => {
+const gameLoopDom = (length, player,enemy) => {
   const gridItems = document.querySelectorAll(".grid-item");
   const container = document.querySelector(".gameboard-container")
   let clicked = false
@@ -139,12 +139,14 @@ const dragDropHorizontal = (length, player,enemy) => {
         dropOver.forEach((element) => {element.classList.add("shipDiv")
         if(size === 0)
         {
+          const instructions = document.querySelector("#startgame")
+          instructions.textContent = "If the game stops working, the AI must be tired and gone to bed, reload the page"
           makeEnemyGrid();
           shipsEnemyDom(enemy,5)
           gameLoop(player,enemy)
-
+          return
         }
-        console.log(clicked)
+        
         });
         }
       },
@@ -285,4 +287,4 @@ const dragDrop = (length,player1)=>{
     dragStuff = false
 })
 }
-export { dragDropHorizontal ,dragDropVertical};
+export { gameLoopDom ,dragDropVertical};

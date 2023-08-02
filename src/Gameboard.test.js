@@ -1,5 +1,5 @@
-import { gameboard } from "./Gameboard";
-import { ship } from "./Ship";
+import { gameboard } from "./Gameboard.js";
+import { ship } from "./Ship.js";
 
 let gameboard2 = gameboard();
 
@@ -85,4 +85,7 @@ test("does it has a ship in 2,3", () => {
 
 test("If position 3,4 has already been attacked", () => {
   expect(gameboard3.ifHasCoordinate([3, 4])).toEqual(true);
+});
+test("clean ship array", () => {
+  expect(gameboard2.cleanShipArray()).toEqual([]);
 });

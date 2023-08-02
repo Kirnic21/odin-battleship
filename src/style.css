@@ -91,3 +91,7 @@
 .ship-div-enemy{
   background-color: #553c9a;
 }
+#startgame{
+  display: flex;
+  justify-content: center;
+}
