@@ -58,7 +58,7 @@ const player = (name, playerTurn) => {
       if (getPlayerTurn() === true) {
         let xCoordinateRandom = parseInt(Math.floor(Math.random() * 9));
         let yCoordinateRandom = parseInt(Math.floor(Math.random() * 9));
-
+        let validNumber = true
         const enemyGameboard = getEnemy(enemy).getGameboard();
         if (
           checkCoordinate(enemyGameboard.getCoordinates(), [
@@ -66,7 +66,22 @@ const player = (name, playerTurn) => {
             yCoordinateRandom,
           ])
         ) {
-          return aiBehavior(enemy);
+          validNumber = false
+        
+          while(validNumber === false)
+          {
+            xCoordinateRandom = parseInt(Math.floor(Math.random() * 9));
+          yCoordinateRandom = parseInt(Math.floor(Math.random() * 9));
+          if(!checkCoordinate(enemyGameboard.getCoordinates(), [
+            xCoordinateRandom,
+            yCoordinateRandom,
+          ]))
+          {
+            validNumber = true
+          }
+        }
+          enemyGameboard.receiveAttack([xCoordinateRandom, yCoordinateRandom]);
+          return enemyGameboard.getCoordinates();
         } else {
           enemyGameboard.receiveAttack([xCoordinateRandom, yCoordinateRandom]);
           return enemyGameboard.getCoordinates();

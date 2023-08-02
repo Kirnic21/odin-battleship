@@ -194,8 +194,6 @@ const placeShipsDOM = (player1)=>{
 }
 const shipsEnemyDom = (enemy,quantity)=>{
   let enemyGameboard = enemy.getGameboard()
-  const enemyGameboardDOM = document.querySelector(".gameboard")
-  const gridItems = document.querySelectorAll(".grid-item-enemy")
   let orientation = Math.floor(Math.random()*2)
   
 
